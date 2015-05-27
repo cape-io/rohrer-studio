@@ -566,16 +566,24 @@ ul {
 ol {
   list-style: decimal;
 }
+ol ul {
+  margin-left: 1em;
+}
 ul {
   list-style: disc;
 }
 ul ul {
   list-style: circle;
-  margin-left: 1em;
+}
+ul ul ul {
+  list-style: square;
 }
 ol li,
 ul li {
   line-height: 1.618em;
+}
+ol li p {
+  margin: 0;
 }
 * {
   box-sizing: border-box;
