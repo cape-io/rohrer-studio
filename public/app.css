@@ -9,6 +9,7 @@
 */
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,800,700,300,600");
 @import url("http://fonts.googleapis.com/css?family=Gentium+Book+Basic:400,700,400italic,700italic");
+@import url('http://fonts.googleapis.com/css?family=PT+Mono');
 html,
 body,
 div,
@@ -183,6 +184,9 @@ sub {
   font-family: 'LeagueGothic', Calibri, Helvetica, Arial, Sans-serif;
   font-weight: normal;
 }
+.ptmono {
+  font-family: 'PT Mono', 'droid mono', menlo, monaco, monospace;
+}
 /* Color Palette */
 /** other general reusable classes/hacks **/
 .clearfix {
@@ -222,8 +226,6 @@ sub {
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 * {
   -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
   box-sizing: border-box;
   position: relative;
   /* type stuff */
@@ -234,13 +236,8 @@ sub {
   -o-font-feature-settings: "kern";
   font-feature-settings: "kern";
   font-kerning: normal;
-  /**/
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  /**/
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
+  line-height: 1.618em;
 }
 html,
 body {
@@ -249,9 +246,14 @@ body {
   padding: 0;
   width: 100%;
 }
-/* super simple CF from the very end of here: http://css-tricks.com/snippets/css/clear-fix/ — only works in IE8+, so not so super back compatible — but we're looking to the future! */
+/* 
+   super simple CF from the very end of here: 
+   http://css-tricks.com/snippets/css/clear-fix/ — only works in IE8+, 
+   so not so super back compatible — but we're looking to the future! 
+*/
 .clearfix::after,
-.group::after {
+.group::after,
+.row::after {
   content: "";
   display: table;
   clear: both;
@@ -279,7 +281,8 @@ body {
   margin: 0 0 2rem 0;
   padding: 0;
 }
-.group {
+.group,
+.row {
   margin: 0 0 2rem 0;
 }
 .one,
@@ -297,6 +300,11 @@ body {
 .twelve,
 .fullwidth {
   width: calc(100%);
+}
+/** still need to flesh this out **/
+.visible-sm {
+  display: block;
+  visibility: visible;
 }
 .visible-lg {
   display: none;
@@ -342,10 +350,18 @@ body {
     margin: 0 0 2rem 0;
     padding: 0 1rem;
   }
-  .group {
+  .group,
+  .row {
     margin: 0 -1rem 2rem -1rem;
   }
   /* default 12 column grid */
+  /* 
+     too add or remove, simply add the additional columns, 
+     and then replace "12" in all the calculations below with whatever 
+     number of columns you wish to use. 5, 8, 16, 101, whatever. 
+     We're working on a clever-er way to make this work.
+     You'll need to add classes up above too if you make more columns.
+  */
   .one {
     width: calc(8.33333333%);
   }
@@ -401,7 +417,7 @@ body {
     margin-left: calc(41.66666667%);
   }
   .offset-by-six,
-  .offset-by-hal {
+  .offset-by-half {
     margin-left: calc(50%);
   }
   .offset-by-seven {
@@ -426,6 +442,10 @@ body {
     display: block;
     visibility: visible;
   }
+  .visible-sm {
+    display: none;
+    visibility: hidden;
+  }
 }
 /* Base Styles
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -438,7 +458,14 @@ html {
 body {
   font-size: 1em;
   /* currently ems cause chrome bug misinterpreting rems on body element */
-  line-height: 1.5;
+  line-height: 1.618em;
+  font-weight: 400;
+  /* do I want a better, wider ranging font-stack? */
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  text-rendering: optimizeLegibility;
 }
 /* Base Typography
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
@@ -496,16 +523,10 @@ h6 {
 p {
   margin-top: 0;
   margin-bottom: 1em;
-  line-height: normal;
 }
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
-  line-height: normal;
-}
-ul {
-  margin-bottom: 1em;
-  line-height: normal;
 }
 small,
 .small {
@@ -522,7 +543,7 @@ img {
   text-align: center;
 }
 /* The ghost, nudged to maintain perfect centering */
-.block:before {
+.block::before {
   content: '';
   display: inline-block;
   height: 100%;
@@ -537,418 +558,366 @@ img {
   vertical-align: middle;
   width: 300px;
 }
-/* END @Font-Face */
-/* + General Layout / Design Stuff */
-/* =================================================================== */
-/* =================================================================== */
+/* List control stuff */
+ol,
+ul {
+  margin-bottom: 1em;
+}
+ol {
+  list-style: decimal;
+}
+ul {
+  list-style: disc;
+}
+ul ul {
+  list-style: circle;
+  margin-left: 1em;
+}
+ol li,
+ul li {
+  line-height: 1.618em;
+}
 * {
-  -webkit-box-sizing: border-box;
-  -moz-box-sizing: border-box;
-  -ms-box-sizing: border-box;
   box-sizing: border-box;
-  position: relative;
-  /* type stuff */
-  /**/
-  -moz-font-feature-settings: "kern";
-  -webkit-font-feature-settings: "kern";
-  -ms-font-feature-settings: "kern";
-  -o-font-feature-settings: "kern";
-  font-feature-settings: "kern";
-  font-kerning: normal;
-  /**/
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  /**/
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
+  font-size: 1em;
+  line-height: 1.5em;
+}
+.clear {
+  clear: both;
+  display: block;
+}
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
 }
 html {
-  background: #848478;
-  color: #2f2926;
-  min-height: 100%;
-  min-width: 100%;
-  font-family: 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
-}
-html::after {
-  display: block;
-  content: '';
-  /**/
-  pointer-events: none;
-  border: 1.5rem solid #606767;
-  box-shadow: inset 0 0 0 2px #2f2926;
-  z-index: 500;
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
 }
 body {
   margin: 0;
-  padding: 2rem;
+  padding: 20px;
+  width: 100%;
+  color: gray;
+  background: #faf8f8;
 }
-em,
-cite {
-  font-style: italic;
+p {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
 }
-strong {
-  font-weight: 700;
-}
+/******/
 header {
-  position: relative;
+  padding-top: 1em;
+  margin-bottom: 1em;
 }
-footer {
-  border-top: 6px solid #2f2926;
-  margin-top: 40px;
-  margin-bottom: 72px;
-  padding: 24px 0;
-}
-/* MAIN TOP NAV STYLES                                   */
-/* ===================================================== */
-header > a {
-  position: fixed;
-  top: 2rem;
-  z-index: 999;
+header h1,
+header h1 a,
+header a {
+  color: #cd2027;
+  text-transform: lowercase;
+  font-weight: normal;
+  margin: 0;
+  font-size: 2em;
+  line-height: .6;
+  padding: 0;
   display: block;
-  background-color: transparent;
-  background-image: url('/media/ookblogo.png');
-  background-position: center center;
-  background-size: contain;
-  background-repeat: no-repeat;
-  height: 7rem;
-  width: 7rem;
-  color: transparent;
-  border: none;
   text-decoration: none;
-  text-indent: 200%;
-  white-space: nowrap;
-  overflow: hidden;
-}
-header > a:hover {
-  display: block;
-  background-color: transparent;
-  background-image: url('/media/ookblogo.png');
-  background-position: center center;
-  background-size: contain;
-  color: transparent;
-  border: none;
-  text-decoration: none;
-  text-indent: 200%;
-  white-space: nowrap;
-  overflow: hidden;
+  font-family: 'Gentium Book Basic', Cambria, Georgia, Times, serif;
 }
 header nav {
-  position: fixed;
-  top: 4rem;
-  right: 3rem;
-  z-index: 99;
+  float: right;
+  margin-top: .5em;
 }
 header nav ul {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-left: 1px solid #2f2926;
-}
-header nav ul h2 {
-  display: none;
 }
 header nav ul li {
+  font-family: 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
   display: inline-block;
   margin: 0;
   padding: 0;
 }
 header nav ul li a {
-  background: #606767;
-  border: 1px solid #2f2926;
-  border-left: none;
-  color: #2f2926;
   display: block;
-  font-weight: 400;
-  padding: 10px 30px;
+  padding: .2em .75em;
   text-decoration: none;
+  color: gray;
 }
 header nav ul li a:hover {
-  background: #ec4079;
-  color: white;
-  text-decoration: none;
+  color: black;
 }
-/* 3. TYPOGRAPHY */
-/* =================================================================== */
-/* =================================================================== */
-/* Links and More */
-/* =================================================================== */
-a {
-  color: #2f2926;
-  text-decoration: none;
-  background: rgba(132, 132, 120, 0.1);
-  border-bottom: 1px solid #ec4079;
-  padding: 1px 2px 1px 2px;
-  transition: all 500ms;
-  -webkit-transition: all 500ms;
-  -moz-transition: all 500ms;
-  -o-transition: all 500ms;
-  -ms-transition: all 500ms;
+header nav ul li.active a {
+  border-bottom: 2px solid #cd2027;
+  box-sizing: border-box;
 }
-a:hover {
-  background: #ec4079;
-  color: white;
-  text-decoration: none;
-}
-a:link {
-  -webkit-tap-highlight-color: #FF5E99;
-}
-::selection {
-  background: #ec4079;
-  color: white;
-  text-shadow: none;
-}
-/** New stuff for EZLE site below here **/
-main {
-  margin-top: 10rem;
-}
-main aside nav {
-  position: relative;
-  margin-bottom: 2rem;
-}
-main aside nav::after {
-  content: '';
-  display: table;
-  clear: both;
-}
-main aside nav ul {
-  float: left;
-  width: 50%;
-  margin: 0;
-  padding: 0;
-}
-.image-grid {
+/******/
+/****
+  Refine these stlyes more — start with a simpler, single column, then grow.
+  Also, it should get even wider than just 6 columns at even larger screen sizes.
+*****/
+#projects {
   list-style: none;
-  margin: 0 -50vw;
-  padding: 0 1.5rem;
-  width: 100vw;
+  margin: 0 -2.5px;
+  padding: 0;
+  width: calc(105%);
+}
+#projects li.project-preview {
+  height: calc(202px);
   position: relative;
-  left: 50%;
-}
-.image-grid::after {
-  content: '';
-  display: table;
-  clear: both;
-}
-.image-grid .image {
+  padding: 0 2.5px;
+  margin-bottom: 5px;
+  overflow: hidden;
   float: left;
   width: 100%;
-  height: calc((100vw - 4rem) * .66);
-  position: relative;
-  overflow: hidden;
-  margin: 0;
-  padding: 0;
 }
-.image-grid .image a {
-  width: 100%;
-  display: block;
-  margin: 0;
-  padding: 0;
+@media (min-width: 300px) {
+  #projects li.project-preview {
+    height: calc(202px);
+  }
 }
-.image-grid .image a img {
-  width: 100%;
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-.title-list li {
-  margin: .33em 0;
-}
-.title-list li:first-of-type a {
-  font-size: 1.5em;
-  margin-bottom: .5em;
-}
-.title-list li span.date {
-  color: #606767;
-  width: 8em;
-  display: inline-block;
+@media (min-width: 350px) {
+  #projects li.project-preview {
+    height: calc(252px);
+  }
 }
 @media (min-width: 400px) {
-  .image-grid .image {
-    width: 50%;
-    height: calc(((100vw - 4rem) / 2) * .66);
+  #projects li.project-preview {
+    height: calc(303px);
   }
 }
-@media (min-width: 601px) {
-  .image-grid .image {
-    width: 33%;
-    height: calc(((100vw - 4rem) / 3) * .66);
+@media (min-width: 440px) {
+  #projects li.project-preview {
+    width: calc(50%);
+    height: calc(178px);
   }
 }
-@media (min-width: 901px) {
-  .image-grid .image {
-    width: 25%;
-    height: calc(((100vw - 4rem) / 4) * .66);
+@media (min-width: 700px) {
+  #projects li.project-preview {
+    width: calc(33.33333333%);
   }
 }
-@media (min-width: 1201px) {
-  .image-grid .image {
-    width: 20%;
-    height: calc(((100vw - 4rem) / 5) * .66);
+@media (min-width: 840px) {
+  #projects li.project-preview {
+    width: calc(25%);
   }
 }
-@media (min-width: 1501px) {
-  .image-grid .image {
-    width: calc(100% / 6);
-    height: calc(((100vw - 4rem) / 6) * .66);
+@media (min-width: 1040px) {
+  #projects li.project-preview {
+    width: calc(20%);
   }
 }
-@media (min-width: 1801px) {
-  .image-grid .image {
-    width: calc(100% / 7);
-    height: calc(((100vw - 4rem) / 7) * .66);
+@media (min-width: 1240px) {
+  #projects li.project-preview {
+    width: calc(16.66666667%);
   }
 }
-@media (min-width: 2101px) {
-  .image-grid .image {
-    width: calc(100% / 8);
-    height: calc(((100vw - 4rem) / 8) * .66);
+@media (min-width: 1480px) {
+  #projects li.project-preview {
+    width: calc(14.28571429%);
   }
 }
-/* Notes section
-   ===================================== */
-.page h1 {
-  color: #c5c065;
+@media (min-width: 1720px) {
+  #projects li.project-preview {
+    width: calc(12.5%);
+  }
 }
-.page .content p:first-of-type {
-  font-size: 1.33em;
+#projects li.project-preview img {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
 }
-aside.pager {
-  border-top: 1px solid #2f2926;
-  margin-top: 3rem;
-  padding: 1.5rem 0;
-}
-/* *********************************************** */
-/* *********************************************** */
-/* »»»»»»» Overlay Related Styles «««««««« */
-/* *********************************************** */
-/* *********************************************** */
-.controls {
-  width: 33%;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-}
-.arrows {
-  display: block;
-  content: '';
-  background-repeat: no-repeat;
-  height: 100%;
+li.project-preview .info {
+  color: gray;
   position: absolute;
-  top: 0;
-  bottom: 0;
-}
-section .image-grid .image .img-detail {
-  background: #848478;
-  background-image: url('/media/loading.gif');
-  background-position: center center;
-  background-repeat: no-repeat;
-  position: fixed;
-  top: 0;
+  left: 0;
   right: 0;
   bottom: 0;
-  left: 0;
-  padding: 20px;
-  overflow: hidden;
+  padding: .25em .5em;
+  background: #faf8f8;
+  transition: all 300ms ease-out;
+  font-size: 75%;
+  height: 4em;
+}
+/*
+li.project-preview:hover .info {
+  top: 50%;
+}
+*/
+.info h2 {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #cd2027;
+  text-decoration: none;
+  font-size: 1.1em;
+  line-height: 1.2;
+  margin: 0;
+}
+.info p {
+  display: none;
+  margin: 5px 0;
+  font-family: 'Gentium Book Basic', Georgia, serif;
+}
+footer {
+  margin-top: 40px;
+  font-size: .9em;
+}
+footer a {
+  color: gray;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(205, 32, 39, 0.75);
+}
+.other section {
+  padding: 100px 0;
+}
+.columns {
+  float: left;
+}
+.columns.half {
+  width: 50%;
+}
+#filters {
+  list-style: none;
+  margin: 0 0 20px 0;
+  padding: 10px 0;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+#filters li {
+  display: inline-block;
+}
+#projects .category {
+  display: none;
+}
+/* demo home slideshow */
+#homess {
   text-align: center;
-  vertical-align: middle;
-  z-index: 999;
-  /** controls **/
+  /*  background: lightGray;*/
+  padding: 1em;
+  margin: 0 -20px;
 }
-section .image-grid .image .img-detail::before {
-  content: '';
-  display: inline-block;
-  height: 100%;
-  vertical-align: middle;
-  margin-right: -0.5%;
-  /* Adjusts for spacing */
+.cycle-slideshow {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
 }
-section .image-grid .image .img-detail a {
-  display: initial;
-}
-section .image-grid .image .img-detail a > img {
-  max-height: 99%;
-  max-width: 99%;
-  width: auto;
+.cycle-slideshow img {
+  width: 100%;
   height: auto;
-  vertical-align: middle;
-  display: inline-block;
 }
-section .image-grid .image .img-detail a.button {
-  position: absolute;
-  float: none;
+.cycle-pager span {
+  font-size: 3em;
+  width: .5em;
+  height: .5em;
+  line-height: .5;
+  display: inline-block;
+  color: gray;
+  cursor: pointer;
+}
+.cycle-pager span.cycle-pager-active {
+  color: #cd2027;
+}
+/** individual project **/
+#detail-view {
+  padding-top: 2em;
+}
+#detail-view .detail-info {
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  color: gray;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+#detail-view .detail-info h1 {
+  float: left;
+  width: 25%;
+  padding: 0 15px;
+  margin: 0;
+  font-size: 24px;
+  line-height: 24px;
+}
+#detail-view .detail-info section.content {
+  float: left;
+  width: 50%;
+  padding: 0 15px;
+  margin: 4px 0 0 0;
+  line-height: 24px;
+}
+section.content p {
+  margin: 0 0 1em 0;
+}
+#detail-view .detail-info ul.miscellany {
+  line-height: 24px;
+  list-style: none;
+  margin: 4px 0 0 0;
+  float: left;
+  width: 25%;
+  padding: 0 15px;
+}
+#detail-view .detail-info ul.miscellany li {
+  border-bottom: 1px solid #cd2027;
+  font-size: 12px;
+  padding: .5em 0;
+}
+#detail-view .detail-info ul.miscellany li:first-child {
+  border-top: 1px solid #cd2027;
+}
+#detail-view ul.projects-nav {
+  list-style: none;
+  margin: 40px 0 0 0;
+  border-top: 1px solid #cd2027;
+  padding: 20px 0 0 0;
+  text-align: center;
+  width: 100%;
+}
+#detail-view ul.projects-nav li {
+  display: inline-block;
+  margin: 0 15px;
+}
+#detail-view ul.projects-nav li button {
+  width: 150px;
+}
+.image-thread img {
+  width: 100%;
   display: block;
-  z-index: 199;
+  margin: 2em 0;
+}
+#detail-view .content figure {
+  margin: 1em 0;
+  padding: 0;
+  position: relative;
+}
+#detail-view .content figure figcaption {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 0;
+  left: calc(101%);
+  width: 50%;
+  font-size: 85%;
+  color: darkgrey;
+}
+#filters button {
   background: transparent;
   border: none;
+  color: gray;
 }
-section .image-grid .image .img-detail a.button.close {
-  background-image: url(/media/close.png);
-  background-position: center center;
-  background-repeat: no-repeat;
-  height: 30px;
-  width: 30px;
-  top: 15px;
-  right: 15px;
-  z-index: 299;
-  text-indent: 200%;
-  white-space: nowrap;
-  overflow: hidden;
-}
-section .image-grid .image .img-detail a.button.left {
-  width: 33%;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  text-indent: 200%;
-  white-space: nowrap;
-  overflow: hidden;
-  left: 0;
-}
-section .image-grid .image .img-detail a.button.left:hover {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0));
-}
-section .image-grid .image .img-detail a.button.left::after {
+#filters .search-field {
   display: block;
-  content: '';
-  background-repeat: no-repeat;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background-image: url(/media/arrowL.png);
-  background-position: left center;
-  right: 0;
-  left: 2em;
+  float: right;
+  margin-left: 5%;
+  width: 20%;
 }
-section .image-grid .image .img-detail a.button.right {
-  width: 33%;
-  height: 100%;
-  top: 0;
-  bottom: 0;
-  text-indent: 200%;
-  white-space: nowrap;
-  overflow: hidden;
-  right: 0;
+#filters .search-field input {
+  width: 100%;
 }
-section .image-grid .image .img-detail a.button.right:hover {
-  background: linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.25));
-}
-section .image-grid .image .img-detail a.button.right::after {
-  display: block;
-  content: '';
-  background-repeat: no-repeat;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  background-image: url(/media/arrowR.png);
-  background-position: right center;
-  right: 2em;
-  left: 0;
-}
+/** start some responsive stuff? **/

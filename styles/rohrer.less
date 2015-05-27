@@ -1,0 +1,394 @@
+* { box-sizing: border-box; font-size: 1em; line-height: 1.5em; }
+
+.clear { clear: both; display: block; }
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 20px;
+  width: 100%;
+  color: gray;
+  background: rgba(250,248,248,1);
+}
+
+p {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+/******/
+
+header {
+  padding-top: 1em;
+  margin-bottom: 1em;
+}
+
+header h1,
+header h1 a,
+header a {
+  color: @rohrer-red;
+  text-transform: lowercase;
+  font-weight: normal;
+  margin: 0;
+  font-size: 2em;
+  line-height: .6;
+  padding: 0;
+  display: block;
+  text-decoration: none;
+  font-family: @gentium-stack;
+}
+
+header nav {
+  float: right;
+  margin-top: .5em;
+}
+
+header nav ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li {
+  font-family: @open-sans-stack;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin: 0;
+  padding: 0;
+}
+
+header nav ul li a {
+  display: block;
+  padding: .2em .75em;
+  text-decoration: none;
+  color: gray;
+}
+
+header nav ul li a:hover {
+  color: black;
+}
+
+header nav ul li.active a {
+  border-bottom: 2px solid @rohrer-red;
+  box-sizing: border-box;
+}
+
+/******/
+
+/****
+  Refine these stlyes more — start with a simpler, single column, then grow.
+  Also, it should get even wider than just 6 columns at even larger screen sizes.
+*****/
+
+#projects {
+  list-style: none;
+  margin: 0 -2.5px;
+  padding: 0;
+  width: calc(100% + 5px);
+}
+
+#projects li.project-preview {
+  height: calc(200px + 2em);
+  position: relative;
+  padding: 0 2.5px;
+  margin-bottom: 5px;
+  overflow: hidden;
+  float: left;
+  width: 100%;
+}
+
+@media (min-width: 300px) {
+  #projects li.project-preview {
+    height: calc(200px + 2em);
+  }
+}
+
+@media (min-width: 350px) {
+  #projects li.project-preview {
+    height: calc(250px + 2em);
+  }
+}
+
+@media (min-width: 400px) {
+  #projects li.project-preview {
+    height: calc(300px + 3em);
+  }
+}
+
+@media (min-width: 440px) {
+  #projects li.project-preview {
+    width: calc(100% / 2);
+    height: calc(175px + 3em);
+  }
+}
+
+@media (min-width: 700px) {
+  #projects li.project-preview {
+    width: calc(100% / 3);
+  }
+}
+
+@media (min-width: 840px) {
+  #projects li.project-preview {
+    width: calc(100% / 4);
+  }
+}
+
+@media (min-width: 1040px) {
+  #projects li.project-preview {
+    width: calc(100% / 5);
+  }
+}
+
+@media (min-width: 1240px) {
+  #projects li.project-preview {
+    width: calc(100% / 6);
+  }
+}
+
+@media (min-width: 1480px) {
+  #projects li.project-preview {
+    width: calc(100% / 7);
+  }
+}
+
+@media (min-width: 1720px) {
+  #projects li.project-preview {
+    width: calc(100% / 8);
+  }
+}
+
+#projects li.project-preview img {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+li.project-preview .info {
+  color: gray;
+  position: absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  padding: .25em .5em;
+  background: rgba(250,248,248,1);
+  transition: all 300ms ease-out;
+  font-size: 75%;
+  height: 4em;
+}
+
+/*
+li.project-preview:hover .info {
+  top: 50%;
+}
+*/
+
+.info h2 {
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: @rohrer-red;
+  text-decoration: none;
+  font-size: 1.1em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.info p {
+  display: none;
+  margin: 5px 0;
+  font-family: 'Gentium Book Basic', Georgia, serif;
+}
+
+footer {
+  margin-top: 40px;
+  font-size: .9em;
+}
+
+footer a {
+  color: gray;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(205,32,39,.75);
+}
+
+.other section {
+  padding: 100px 0
+}
+
+.columns {
+  float:left;
+}
+
+.columns.half {
+  width: 50%;
+}
+
+#filters {
+  list-style: none;
+  margin: 0 0 20px 0;
+  padding: 10px 0;
+  border-top: 1px solid;
+  border-bottom: 1px solid;
+}
+
+#filters li {
+  display: inline-block;
+}
+
+#projects .category {
+  display: none;
+}
+
+/* demo home slideshow */
+
+#homess {
+  text-align: center;
+/*  background: lightGray;*/
+  padding: 1em;
+  margin: 0 -20px;
+}
+
+.cycle-slideshow { width: 100%; max-width: 960px; margin: 0 auto; }
+.cycle-slideshow img { width: 100%; height: auto }
+
+.cycle-pager span {
+  font-size: 3em;
+  width: .5em;
+  height: .5em;
+  line-height: .5;
+  display: inline-block;
+  color: gray;
+  cursor: pointer;
+}
+
+.cycle-pager span.cycle-pager-active {
+  color: @rohrer-red;
+}
+
+/** individual project **/
+#detail-view {
+  padding-top: 2em;
+}
+
+#detail-view .detail-info {
+  width: 100%;
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+  color: gray;
+  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+#detail-view .detail-info h1 {
+  float: left;
+  width: 25%;
+  padding: 0 15px;
+  margin: 0;
+  font-size: 24px;
+  line-height: 24px;
+}
+
+#detail-view .detail-info section.content {
+  float: left;
+  width: 50%;
+  padding: 0 15px;
+  margin: 4px 0 0 0;
+  line-height: 24px;
+}
+
+section.content p {
+  margin: 0 0 1em 0;
+}
+
+#detail-view .detail-info ul.miscellany {
+  line-height: 24px;
+  list-style: none;
+  margin: 4px 0 0 0;
+  float: left;
+  width: 25%;
+  padding: 0 15px;
+}
+
+#detail-view .detail-info ul.miscellany li {
+  border-bottom: 1px solid @rohrer-red;
+  font-size: 12px;
+  padding: .5em 0;
+}
+
+#detail-view .detail-info ul.miscellany li:first-child {
+  border-top: 1px solid @rohrer-red;
+}
+
+#detail-view ul.projects-nav {
+  list-style: none;
+  margin: 40px 0 0 0;
+  border-top: 1px solid @rohrer-red;
+  padding: 20px 0 0 0;
+  text-align: center;
+  width: 100%;
+}
+#detail-view ul.projects-nav li {
+  display: inline-block;
+  margin: 0 15px;
+}
+
+#detail-view ul.projects-nav li button {
+  width: 150px;
+}
+
+.image-thread img {
+  width: 100%;
+  display: block;
+  margin: 2em 0;
+}
+      
+#detail-view .content figure {
+  margin: 1em 0;
+  padding: 0;
+  position: relative;
+}
+
+#detail-view .content figure figcaption {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top:0;
+  left: calc(100% + 1em);
+  width: 50%;
+  font-size: 85%;
+  color: darkgrey;
+}
+
+#filters button {
+  background: transparent;
+  border: none;
+  color: gray;
+}
+
+#filters .search-field {
+  display: block;
+  float: right;
+  margin-left: 5%;
+  width: 20%;
+}
+
+#filters .search-field input {
+  width: 100%;
+}
+
+/** start some responsive stuff? **/
+

@@ -5,10 +5,8 @@
 // also might be useful:   http://alistapart.com/article/negativemargins
 
 * {
-  -webkit-box-sizing:border-box;
-  -moz-box-sizing:border-box;
-  -ms-box-sizing:border-box;
-  box-sizing:border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
   position: relative;
   /* type stuff */
   /**/
@@ -18,25 +16,26 @@
   -o-font-feature-settings: "kern";
   font-feature-settings: "kern";
   font-kerning: normal;
-  /**/
   text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  /**/
-  -webkit-hyphens: auto;
-  -moz-hyphens: auto;
-  hyphens: auto;
+  line-height: 1.618em;
 }
 
-html, body {
+html, 
+body {
   height: 100%;
   margin: 0;
   padding: 0;
   width: 100%;
 }
 
-/* super simple CF from the very end of here: http://css-tricks.com/snippets/css/clear-fix/ — only works in IE8+, so not so super back compatible — but we're looking to the future! */
+/* 
+   super simple CF from the very end of here: 
+   http://css-tricks.com/snippets/css/clear-fix/ — only works in IE8+, 
+   so not so super back compatible — but we're looking to the future! 
+*/
 .clearfix::after,
-.group::after {
+.group::after,
+.row::after {
   content: "";
   display: table;
   clear: both;
@@ -62,7 +61,8 @@ html, body {
   padding: 0;
 }
 
-.group {
+.group,
+.row {
   margin: 0 0 2rem 0;
 }
 
@@ -80,6 +80,12 @@ html, body {
 .eleven,
 .twelve,
 .fullwidth    { width: calc(100% / 12 * 12); }
+
+/** still need to flesh this out **/
+.visible-sm {
+  display: block;
+  visibility: visible;
+}
 
 .visible-lg {
   display: none;
@@ -117,11 +123,19 @@ html, body {
     padding: 0 1rem;
   }
 
-  .group {
+  .group,
+  .row {
     margin: 0 -1rem 2rem -1rem;
   }
 
   /* default 12 column grid */
+  /* 
+     too add or remove, simply add the additional columns, 
+     and then replace "12" in all the calculations below with whatever 
+     number of columns you wish to use. 5, 8, 16, 101, whatever. 
+     We're working on a clever-er way to make this work.
+     You'll need to add classes up above too if you make more columns.
+  */
   .one                   { width: calc(100% / 12 * 01); }
   .two                   { width: calc(100% / 12 * 02); }
   .three                 { width: calc(100% / 12 * 03); }
@@ -142,7 +156,7 @@ html, body {
   .offset-by-four           { margin-left: calc(100% / 12 * 04); }
   .offset-by-five           { margin-left: calc(100% / 12 * 05); }
   .offset-by-six,
-  .offset-by-hal            { margin-left: calc(100% / 12 * 06); }
+  .offset-by-half           { margin-left: calc(100% / 12 * 06); }
   .offset-by-seven          { margin-left: calc(100% / 12 * 07); }
   .offset-by-eight          { margin-left: calc(100% / 12 * 08); }
   .offset-by-nine           { margin-left: calc(100% / 12 * 09); }
@@ -155,6 +169,11 @@ html, body {
     visibility: visible;
   }
 
+  .visible-sm {
+    display: none;
+    visibility: hidden;
+  }
+  
 }
 
 /* Base Styles
@@ -167,7 +186,14 @@ html {
 }
 body {
   font-size: 1em; /* currently ems cause chrome bug misinterpreting rems on body element */
-  line-height: 1.5;
+  line-height: 1.618em;
+  font-weight: 400;
+  /* do I want a better, wider ranging font-stack? */
+  font-family: "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  hyphens: auto;
+  text-rendering: optimizeLegibility;
 }
 
 /* Base Typography
@@ -199,18 +225,11 @@ h6 { font-size: 1.33rem; }
 p {
   margin-top: 0;
   margin-bottom: 1em;
-  line-height: normal;
 }
 
 .lead {
   font-size: 1.25rem;
   font-weight: 300;
-  line-height: normal;
-}
-
-ul {
-  margin-bottom: 1em;
-  line-height: normal;
 }
 
 small,
@@ -229,7 +248,7 @@ img { max-width: 100%; };
 }
 
 /* The ghost, nudged to maintain perfect centering */
-.block:before {
+.block::before {
   content: '';
   display: inline-block;
   height: 100%;
@@ -243,4 +262,26 @@ img { max-width: 100%; };
   display: inline-block;
   vertical-align: middle;
   width: 300px;
+}
+
+/* List control stuff */
+ol, ul {
+  margin-bottom: 1em;
+}
+
+ol {
+  list-style: decimal;
+}
+
+ul {
+  list-style: disc;
+}
+
+ul ul {
+  list-style: circle;
+  margin-left:  1em;
+}
+
+ol li, ul li {
+  line-height: 1.618em;
 }
