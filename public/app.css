@@ -268,10 +268,16 @@ body {
   text-align: right;
 }
 /* columnar stuff */
-.container {
+.container,
+.container-fluid {
   margin: 0 auto;
-  padding: 0 1rem 2rem 1rem;
   width: 100%;
+}
+.container {
+  padding: 0 1rem 2rem 1rem;
+}
+.container-fluid {
+  padding: 1rem 1rem 2rem;
 }
 .column,
 .columns {
@@ -594,7 +600,7 @@ html {
 }
 body {
   margin: 0;
-  padding: 20px;
+  padding: 0;
   width: 100%;
   color: gray;
   background: #faf8f8;
@@ -721,7 +727,11 @@ aside ul li a:hover {
   vertical-align: middle;
   cursor: pointer;
 }
-.image-grid li.image .info {
+.image-grid li.image figure {
+  height: 100%;
+  position: absolute;
+}
+.image-grid li.image figure .info {
   color: gray;
   position: absolute;
   left: 0;
@@ -733,7 +743,7 @@ aside ul li a:hover {
   font-size: 75%;
   height: 4em;
 }
-.image-grid li.image .info h2 {
+.image-grid li.image figure .info h2 {
   font-family: 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 2px;
@@ -744,7 +754,8 @@ aside ul li a:hover {
   line-height: 1.2;
   margin: 0;
 }
-.image-grid li.image .info p {
+.image-grid li.image figure .info .details,
+.image-grid li.image figure .info .content {
   display: none;
   margin: 5px 0;
   font-family: 'Gentium Book Basic', Georgia, serif;
