@@ -189,11 +189,6 @@ sub {
 }
 /* Color Palette */
 /** other general reusable classes/hacks **/
-.clearfix {
-  content: '';
-  display: table;
-  clear: both;
-}
 .hide-text {
   text-indent: 200%;
   white-space: nowrap;
@@ -251,6 +246,8 @@ body {
    http://css-tricks.com/snippets/css/clear-fix/ — only works in IE8+, 
    so not so super back compatible — but we're looking to the future! 
 */
+.clear,
+.clearfix,
 .clearfix::after,
 .group::after,
 .row::after {
@@ -590,15 +587,6 @@ ol li p {
   font-size: 1em;
   line-height: 1.5em;
 }
-.clear {
-  clear: both;
-  display: block;
-}
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
-}
 html {
   margin: 0;
   padding: 0;
@@ -610,9 +598,7 @@ body {
   width: 100%;
   color: gray;
   background: #faf8f8;
-}
-p {
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
 }
 /******/
 header {
@@ -665,17 +651,26 @@ header nav ul li.active a {
   box-sizing: border-box;
 }
 /******/
+aside nav {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  margin: 2em 0;
+}
 /****
   Refine these stlyes more — start with a simpler, single column, then grow.
   Also, it should get even wider than just 6 columns at even larger screen sizes.
 *****/
-#projects {
+.image-grid {
   list-style: none;
   margin: 0 -2.5px;
   padding: 0;
-  width: calc(105%);
 }
-#projects li.project-preview {
+.image-grid::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.image-grid li.image {
   height: calc(202px);
   position: relative;
   padding: 0 2.5px;
@@ -685,63 +680,63 @@ header nav ul li.active a {
   width: 100%;
 }
 @media (min-width: 300px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     height: calc(202px);
   }
 }
 @media (min-width: 350px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     height: calc(252px);
   }
 }
 @media (min-width: 400px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     height: calc(303px);
   }
 }
 @media (min-width: 440px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(50%);
     height: calc(178px);
   }
 }
 @media (min-width: 700px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(33.33333333%);
   }
 }
 @media (min-width: 840px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(25%);
   }
 }
 @media (min-width: 1040px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(20%);
   }
 }
 @media (min-width: 1240px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(16.66666667%);
   }
 }
 @media (min-width: 1480px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(14.28571429%);
   }
 }
 @media (min-width: 1720px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(12.5%);
   }
 }
-#projects li.project-preview img {
+.image-grid li.image img {
   width: 100%;
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
 }
-li.project-preview .info {
+li.image .info {
   color: gray;
   position: absolute;
   left: 0;
@@ -753,13 +748,8 @@ li.project-preview .info {
   font-size: 75%;
   height: 4em;
 }
-/*
-li.project-preview:hover .info {
-  top: 50%;
-}
-*/
 .info h2 {
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -792,23 +782,32 @@ footer a {
 .columns.half {
   width: 50%;
 }
-#filters {
+aside nav ul {
   list-style: none;
-  margin: 0 0 20px 0;
-  padding: 10px 0;
-  border-top: 1px solid;
-  border-bottom: 1px solid;
+  margin: 1em 0;
+  padding: 0;
 }
-#filters li {
+aside nav ul h2 {
+  display: none;
+}
+aside nav ul li {
   display: inline-block;
 }
-#projects .category {
-  display: none;
+aside nav ul li a {
+  background: transparent;
+  border: none;
+  color: gray;
+  text-transform: capitalize;
+  text-decoration: none;
+  display: inline-block;
+  padding: .1em .5em;
+}
+aside nav ul li a:hover {
+  color: #cd2027;
 }
 /* demo home slideshow */
 #homess {
   text-align: center;
-  /*  background: lightGray;*/
   padding: 1em;
   margin: 0 -20px;
 }
@@ -843,7 +842,7 @@ footer a {
   margin: 30px auto;
   padding: 0 20px;
   color: gray;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
 }
 #detail-view .detail-info h1 {
   float: left;
@@ -913,11 +912,6 @@ section.content p {
   width: 50%;
   font-size: 85%;
   color: darkgrey;
-}
-#filters button {
-  background: transparent;
-  border: none;
-  color: gray;
 }
 #filters .search-field {
   display: block;

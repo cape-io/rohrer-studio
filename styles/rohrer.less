@@ -1,13 +1,5 @@
 * { box-sizing: border-box; font-size: 1em; line-height: 1.5em; }
 
-.clear { clear: both; display: block; }
-
-.clearfix::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
 html {
   margin: 0;
   padding: 0;
@@ -19,11 +11,8 @@ body {
   padding: 20px;
   width: 100%;
   color: gray;
-  background: rgba(250,248,248,1);
-}
-
-p {
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  background: @rohrer-white;
+  font-family: @open-sans-stack;
 }
 
 /******/
@@ -87,19 +76,28 @@ header nav ul li.active a {
 
 /******/
 
+aside nav {
+  border-top: 1px solid gray;
+  border-bottom: 1px solid gray;
+  margin: 2em 0;
+}
+
 /****
   Refine these stlyes more — start with a simpler, single column, then grow.
   Also, it should get even wider than just 6 columns at even larger screen sizes.
 *****/
 
-#projects {
+.image-grid {
   list-style: none;
   margin: 0 -2.5px;
   padding: 0;
-  width: calc(100% + 5px);
+  
+  &::after {
+    .clear;
+  }
 }
 
-#projects li.project-preview {
+.image-grid li.image {
   height: calc(200px + 2em);
   position: relative;
   padding: 0 2.5px;
@@ -110,94 +108,88 @@ header nav ul li.active a {
 }
 
 @media (min-width: 300px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     height: calc(200px + 2em);
   }
 }
 
 @media (min-width: 350px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     height: calc(250px + 2em);
   }
 }
 
 @media (min-width: 400px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     height: calc(300px + 3em);
   }
 }
 
 @media (min-width: 440px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(100% / 2);
     height: calc(175px + 3em);
   }
 }
 
 @media (min-width: 700px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(100% / 3);
   }
 }
 
 @media (min-width: 840px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(100% / 4);
   }
 }
 
 @media (min-width: 1040px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(100% / 5);
   }
 }
 
 @media (min-width: 1240px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(100% / 6);
   }
 }
 
 @media (min-width: 1480px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(100% / 7);
   }
 }
 
 @media (min-width: 1720px) {
-  #projects li.project-preview {
+  .image-grid li.image {
     width: calc(100% / 8);
   }
 }
 
-#projects li.project-preview img {
+.image-grid li.image img {
   width: 100%;
   display: inline-block;
   vertical-align: middle;
   cursor: pointer;
 }
 
-li.project-preview .info {
+li.image .info {
   color: gray;
   position: absolute;
   left:0;
   right:0;
   bottom:0;
   padding: .25em .5em;
-  background: rgba(250,248,248,1);
+  background: @rohrer-white;
   transition: all 300ms ease-out;
   font-size: 75%;
   height: 4em;
 }
 
-/*
-li.project-preview:hover .info {
-  top: 50%;
-}
-*/
-
 .info h2 {
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: @open-sans-stack;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
@@ -237,27 +229,38 @@ footer a {
   width: 50%;
 }
 
-#filters {
+aside nav ul {
   list-style: none;
-  margin: 0 0 20px 0;
-  padding: 10px 0;
-  border-top: 1px solid;
-  border-bottom: 1px solid;
+  margin: 1em 0;
+  padding: 0;
 }
 
-#filters li {
+aside nav ul h2 {
+  display: none;
+}
+
+aside nav ul li {
   display: inline-block;
 }
 
-#projects .category {
-  display: none;
+aside nav ul li a {
+  background: transparent;
+  border: none;
+  color: gray;
+  text-transform: capitalize;
+  text-decoration: none;
+  display: inline-block;
+  padding: .1em .5em;
+  
+  &:hover {
+    color: @rohrer-red;
+  }
 }
 
 /* demo home slideshow */
 
 #homess {
   text-align: center;
-/*  background: lightGray;*/
   padding: 1em;
   margin: 0 -20px;
 }
@@ -290,7 +293,7 @@ footer a {
   margin: 30px auto;
   padding: 0 20px;
   color: gray;
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+  font-family: @open-sans-stack;
 }
 
 #detail-view .detail-info h1 {
@@ -371,12 +374,6 @@ section.content p {
   width: 50%;
   font-size: 85%;
   color: darkgrey;
-}
-
-#filters button {
-  background: transparent;
-  border: none;
-  color: gray;
 }
 
 #filters .search-field {
