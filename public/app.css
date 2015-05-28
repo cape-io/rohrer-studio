@@ -651,10 +651,46 @@ header nav ul li.active a {
   box-sizing: border-box;
 }
 /******/
+footer {
+  margin-top: 40px;
+  font-size: .9em;
+}
+footer a {
+  color: gray;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(205, 32, 39, 0.75);
+}
+/******/
 aside nav {
   border-top: 1px solid gray;
   border-bottom: 1px solid gray;
   margin: 2em 0;
+}
+aside nav .filter-qty {
+  display: none;
+}
+aside ul {
+  list-style: none;
+  margin: 1em 0;
+  padding: 0;
+}
+aside ul h2 {
+  display: none;
+}
+aside ul li {
+  display: inline-block;
+}
+aside ul li a {
+  background: transparent;
+  border: none;
+  color: gray;
+  text-transform: capitalize;
+  text-decoration: none;
+  display: inline-block;
+  padding: .1em .5em;
+}
+aside ul li a:hover {
+  color: #cd2027;
 }
 /****
   Refine these stlyes more — start with a simpler, single column, then grow.
@@ -679,6 +715,55 @@ aside nav {
   float: left;
   width: 100%;
 }
+.image-grid li.image img {
+  width: 100%;
+  display: inline-block;
+  vertical-align: middle;
+  cursor: pointer;
+}
+.image-grid li.image .info {
+  color: gray;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: .25em .5em;
+  background: #faf8f8;
+  transition: all 300ms ease-out;
+  font-size: 75%;
+  height: 4em;
+}
+.image-grid li.image .info h2 {
+  font-family: 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #cd2027;
+  text-decoration: none;
+  font-size: 1.1em;
+  line-height: 1.2;
+  margin: 0;
+}
+.image-grid li.image .info p {
+  display: none;
+  margin: 5px 0;
+  font-family: 'Gentium Book Basic', Georgia, serif;
+}
+.image-grid li.image .img-detail {
+  background: #faf8f8;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 100px;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 999;
+}
+/** 
+  responsive stuff for image grid... 
+  need to work this out better still 
+**/
 @media (min-width: 300px) {
   .image-grid li.image {
     height: calc(202px);
@@ -729,92 +814,6 @@ aside nav {
   .image-grid li.image {
     width: calc(12.5%);
   }
-}
-.image-grid li.image img {
-  width: 100%;
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer;
-}
-li.image .info {
-  color: gray;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  padding: .25em .5em;
-  background: #faf8f8;
-  transition: all 300ms ease-out;
-  font-size: 75%;
-  height: 4em;
-}
-.info h2 {
-  font-family: 'Open Sans', Calibri, Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #cd2027;
-  text-decoration: none;
-  font-size: 1.1em;
-  line-height: 1.2;
-  margin: 0;
-}
-.info p {
-  display: none;
-  margin: 5px 0;
-  font-family: 'Gentium Book Basic', Georgia, serif;
-}
-li.image .img-detail {
-  background: #faf8f8;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 100px;
-  bottom: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  z-index: 999;
-}
-footer {
-  margin-top: 40px;
-  font-size: .9em;
-}
-footer a {
-  color: gray;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(205, 32, 39, 0.75);
-}
-.other section {
-  padding: 100px 0;
-}
-.columns {
-  float: left;
-}
-.columns.half {
-  width: 50%;
-}
-aside nav ul {
-  list-style: none;
-  margin: 1em 0;
-  padding: 0;
-}
-aside nav ul h2 {
-  display: none;
-}
-aside nav ul li {
-  display: inline-block;
-}
-aside nav ul li a {
-  background: transparent;
-  border: none;
-  color: gray;
-  text-transform: capitalize;
-  text-decoration: none;
-  display: inline-block;
-  padding: .1em .5em;
-}
-aside nav ul li a:hover {
-  color: #cd2027;
 }
 /* demo home slideshow */
 #homess {

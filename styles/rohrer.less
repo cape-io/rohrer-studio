@@ -20,67 +20,115 @@ body {
 header {
   padding-top: 1em;
   margin-bottom: 1em;
-}
 
-header h1,
-header h1 a,
-header a {
-  color: @rohrer-red;
-  text-transform: lowercase;
-  font-weight: normal;
-  margin: 0;
-  font-size: 2em;
-  line-height: .6;
-  padding: 0;
-  display: block;
-  text-decoration: none;
-  font-family: @gentium-stack;
-}
+  h1,
+  h1 a,
+  a {
+    color: @rohrer-red;
+    text-transform: lowercase;
+    font-weight: normal;
+    margin: 0;
+    font-size: 2em;
+    line-height: .6;
+    padding: 0;
+    display: block;
+    text-decoration: none;
+    font-family: @gentium-stack;
+  }
 
-header nav {
-  float: right;
-  margin-top: .5em;
-}
+  nav {
+    float: right;
+    margin-top: .5em;
 
-header nav ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
+    ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
 
-header nav ul li {
-  font-family: @open-sans-stack;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  display: inline-block;
-  margin: 0;
-  padding: 0;
-}
+      li {
+        font-family: @open-sans-stack;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        display: inline-block;
+        margin: 0;
+        padding: 0;
 
-header nav ul li a {
-  display: block;
-  padding: .2em .75em;
-  text-decoration: none;
-  color: gray;
-}
+        a {
+          display: block;
+          padding: .2em .75em;
+          text-decoration: none;
+          color: gray;
 
-header nav ul li a:hover {
-  color: black;
-}
+          &:hover {
+            color: black;
+          }
+        }
 
-header nav ul li.active a {
-  border-bottom: 2px solid @rohrer-red;
-  box-sizing: border-box;
+        &.active a {
+          border-bottom: 2px solid @rohrer-red;
+          box-sizing: border-box;
+        }
+      }
+    }
+  }
 }
 
 /******/
 
-aside nav {
-  border-top: 1px solid gray;
-  border-bottom: 1px solid gray;
-  margin: 2em 0;
+footer {
+  margin-top: 40px;
+  font-size: .9em;
+  
+  a {
+    color: gray;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(205,32,39,.75);
+  }
 }
+
+/******/
+
+aside {
+  nav {
+    border-top: 1px solid gray;
+    border-bottom: 1px solid gray;
+    margin: 2em 0;
+
+    .filter-qty {
+      display: none;
+    }
+  }
+
+  ul {
+    list-style: none;
+    margin: 1em 0;
+    padding: 0;
+
+    h2 {
+      display: none;
+    }
+
+    li {
+      display: inline-block;
+
+      a {
+        background: transparent;
+        border: none;
+        color: gray;
+        text-transform: capitalize;
+        text-decoration: none;
+        display: inline-block;
+        padding: .1em .5em;
+
+        &:hover {
+          color: @rohrer-red;
+        }
+      }   
+    }
+  }
+}
+
 
 /****
   Refine these stlyes more — start with a simpler, single column, then grow.
@@ -95,18 +143,72 @@ aside nav {
   &::after {
     .clear;
   }
+
+  li.image {
+    height: calc(200px + 2em);
+    position: relative;
+    padding: 0 2.5px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    float: left;
+    width: 100%;
+
+    img {
+      width: 100%;
+      display: inline-block;
+      vertical-align: middle;
+      cursor: pointer;
+    }
+
+    .info {
+      color: gray;
+      position: absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      padding: .25em .5em;
+      background: @rohrer-white;
+      transition: all 300ms ease-out;
+      font-size: 75%;
+      height: 4em;
+
+      h2 {
+        font-family: @open-sans-stack;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: @rohrer-red;
+        text-decoration: none;
+        font-size: 1.1em;
+        line-height: 1.2;
+        margin: 0;
+      }
+
+      p {
+        display: none;
+        margin: 5px 0;
+        font-family: 'Gentium Book Basic', Georgia, serif;
+      }
+    }
+
+    .img-detail {
+      background: @rohrer-white;
+      position: fixed;
+      left: 0;
+      right: 0;
+      top: 100px;
+      bottom: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      z-index: 999;
+    }
+  }
 }
 
-.image-grid li.image {
-  height: calc(200px + 2em);
-  position: relative;
-  padding: 0 2.5px;
-  margin-bottom: 5px;
-  overflow: hidden;
-  float: left;
-  width: 100%;
-}
-
+/** 
+  responsive stuff for image grid... 
+  need to work this out better still 
+**/
 @media (min-width: 300px) {
   .image-grid li.image {
     height: calc(200px + 2em);
@@ -165,107 +267,6 @@ aside nav {
 @media (min-width: 1720px) {
   .image-grid li.image {
     width: calc(100% / 8);
-  }
-}
-
-.image-grid li.image img {
-  width: 100%;
-  display: inline-block;
-  vertical-align: middle;
-  cursor: pointer;
-}
-
-li.image .info {
-  color: gray;
-  position: absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  padding: .25em .5em;
-  background: @rohrer-white;
-  transition: all 300ms ease-out;
-  font-size: 75%;
-  height: 4em;
-}
-
-.info h2 {
-  font-family: @open-sans-stack;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: @rohrer-red;
-  text-decoration: none;
-  font-size: 1.1em;
-  line-height: 1.2;
-  margin: 0;
-}
-
-.info p {
-  display: none;
-  margin: 5px 0;
-  font-family: 'Gentium Book Basic', Georgia, serif;
-}
-
-li.image .img-detail {
-  background: @rohrer-white;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 100px;
-  bottom: 0;
-  overflow-y: auto;
-  overflow-x: hidden;
-  z-index: 999;
-}
-
-footer {
-  margin-top: 40px;
-  font-size: .9em;
-}
-
-footer a {
-  color: gray;
-  text-decoration: none;
-  border-bottom: 1px solid rgba(205,32,39,.75);
-}
-
-.other section {
-  padding: 100px 0
-}
-
-.columns {
-  float:left;
-}
-
-.columns.half {
-  width: 50%;
-}
-
-aside nav ul {
-  list-style: none;
-  margin: 1em 0;
-  padding: 0;
-}
-
-aside nav ul h2 {
-  display: none;
-}
-
-aside nav ul li {
-  display: inline-block;
-}
-
-aside nav ul li a {
-  background: transparent;
-  border: none;
-  color: gray;
-  text-transform: capitalize;
-  text-decoration: none;
-  display: inline-block;
-  padding: .1em .5em;
-  
-  &:hover {
-    color: @rohrer-red;
   }
 }
 
