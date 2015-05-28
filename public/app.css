@@ -764,6 +764,17 @@ li.image .info {
   margin: 5px 0;
   font-family: 'Gentium Book Basic', Georgia, serif;
 }
+li.image .img-detail {
+  background: #faf8f8;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 100px;
+  bottom: 0;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 999;
+}
 footer {
   margin-top: 40px;
   font-size: .9em;
